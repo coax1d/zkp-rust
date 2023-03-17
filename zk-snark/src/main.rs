@@ -6,7 +6,7 @@
 use pairing::{
     Engine,
 };
-use bls12_381::{Bls12};
+use bls12_381::{Bls12, Scalar};
 use rand::rngs::OsRng;
 use bellman::{
     groth16::{
@@ -19,12 +19,12 @@ use ff::PrimeField;
 
 // This is a simple circuit with two values.
 struct ZkSnarkCircuit {
-    a: Option<[u8; 4]>,
-    b: Option<[u8; 4]>,
+    a: Option<Scalar>,
+    b: Option<Scalar>,
 }
 
-impl<F: PrimeField> Circuit<F> for ZkSnarkCircuit {
-    fn synthesize<CS: ConstraintSystem<F>>(self, cs: &mut CS) -> Result<(), SynthesisError> {
+impl<S: PrimeField> Circuit<S> for ZkSnarkCircuit {
+    fn synthesize<CS: ConstraintSystem<S>>(self, cs: &mut CS) -> Result<(), SynthesisError> {
         // Allocate the first number as a private input to the circuit.
         // let a = cs.alloc(|| "a", || self.a.ok_or(SynthesisError::AssignmentMissing))?; // a = 1
         // println!("a is after alloc: {:?}", a);
