@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "zk-snark",
+]
+[profile.release]
+panic = "unwind"
